@@ -1,0 +1,103 @@
+{
+  "zerolog Error": {
+    "prefix": "logE",
+    "description": "generate zerolog error logger",
+    "body": "log.Error().Stack().Err(err$1).${2|Send(),Msg(\"\")|}",
+  },
+  "zerolog Info": {
+    "prefix": "logI",
+    "description": "generate zerolog info logger",
+    "body": "log.Info().Msg(\"$1\")",
+  },
+  "zerolog Warn": {
+    "prefix": "logW",
+    "description": "generate zerolog warn logger",
+    "body": "log.Warn().Msg(\"$1\")",
+  },
+  "if else if statement": {
+    "prefix": "elif",
+    "description": "snippet for if else if statement",
+    "body": [
+      "if ${1:err != nil} {",
+      "\t${2:return err}",
+      "} else if ${3:err == nil} {",
+      "\t$4",
+      "}"
+    ],
+  },
+  "if else statement": {
+    "prefix": "else",
+    "description": "if else snippet",
+    "body": [
+      "if ${1:err != nil} {",
+      "\t${2:return nil}",
+      "} else {",
+      "\t$3",
+      "}"
+    ],
+  },
+  "Init controller package": {
+  "prefix": "controller",
+  "body": [
+    "package ${TM_DIRECTORY/.*[\\\\\\/](.*)$/$1/}",
+    "",
+    "type controller struct {",
+    "}",
+    "",
+    "func Init(e *echo.Echo) {",
+    " h := controller{}",
+    "}"
+  ],
+  "description": "Init package file",
+  },
+  "Init package with config": {
+  "prefix": "confg_init",
+  "body": [
+    "package ${TM_DIRECTORY/.*[\\\\\\/](.*)$/$1/}",
+    "",
+    "type ${1|Repository,Service|} interface {",
+    "}",
+    "",
+    "type Config struct {",
+    "}",
+    "",
+    "type ${2|repository,service|} struct {",
+    "config Config",
+    "}",
+    "",
+    "func New(",
+    "config Config,",
+    ") ${1} {",
+    "  return &${2}{",
+    "    config: config,",
+    "}",
+    "}"
+  ],
+  "description": "Init package file",
+  },
+  "Init package file": {
+  "prefix": "init",
+  "body": [
+    "package ${TM_DIRECTORY/.*[\\\\\\/](.*)$/$1/}",
+    "",
+    "type ${1|Repository,Service|} interface {",
+    "}",
+    "",
+    "type ${2|repository,service|} struct {",
+    "",
+    "func New() ${1} {",
+    "  return &${2}{}",
+    "}"
+  ],
+  "description": "Init package file",
+  },
+  "generate validation function": {
+    "prefix": "validate",
+    "description": "generate validation for struct",
+    "body": [
+      "func (req $1) Validate() error {",
+      " return ozzo.ValidateStruct(&req, $2)",
+      "}"
+    ],
+  }
+}
